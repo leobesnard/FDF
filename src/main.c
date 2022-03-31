@@ -6,52 +6,83 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:54:02 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/03/22 18:14:44 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/03/31 21:18:59 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "fdf.h"
+#include <X11/X.h>
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
+int	win_close(t_vars *vars)
 {
-	char	*dst;
+	//if (keycode == 65307)
+	mlx_loop_end(vars->mlx);
+	return (0);
+}
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+int	key_hook(int keycode, t_vars *vars)
+{
+	(void)vars;
+	printf("keyboard %c\n", keycode);
+	return (0);
+}
+
+int	mouse_hook(int keycode, t_vars *vars)
+{
+	(void)vars;
+	printf("mouse %d\n", (char)keycode);
+	return (0);
 }
 
 int	main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
+	t_vars	vars;
 	t_data	img;
-	int i;
-	int y;
+	t_diff	d;
+	t_point	p1;
+	t_point	p2;
+	
+	p1.x = W_WIDTH / 2;
+	p1.y = W_HEIGHT / 2;
+	p2.x = W_WIDTH;
+	p2.y = W_HEIGHT;
 
-	i = 480;
-	y = 270;
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	img.img = mlx_new_image(mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	while (y < 810)
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
+	img.img = mlx_new_image(vars.mlx, 1920, 1080);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	//draw_line(img, p1, p2, d);
+	for (int i=0; i <= W_WIDTH; i += 10)
 	{
-		while (i++ < 1440)
-		{
-			my_mlx_pixel_put(&img, i, y, 0x00FF0000);
-		}
-		y++;
-		i= 480;
+		p2.x = i;
+		p2.y = 0;
+		draw_line(img, p1, p2, d);
+		p2.y = W_HEIGHT;
+		draw_line(img, p1, p2, d);
 	}
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	for (int i=0; i <= W_HEIGHT; i += 10)
+	{
+		p2.x = 0;
+		p2.y = i;
+		draw_line(img, p1, p2, d);
+		p2.x = W_WIDTH;
+		draw_line(img, p1, p2, d);
+	}
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_mouse_hook(vars.win, mouse_hook, &vars);
+	mlx_hook(vars.win, 17, StructureNotifyMask, win_close, &vars);
+	mlx_loop(vars.mlx);
+	mlx_destroy_window(vars.mlx, vars.win);
+	mlx_destroy_display(vars.mlx);
+	free(vars.mlx);
 }
