@@ -9,7 +9,7 @@ MLX =$(MLPATH)libmlx.a
 
 #################################################################
 src = main.c\
-	color.c\
+	colors.c\
 	bresenham.c\
 	utils.c\
 
