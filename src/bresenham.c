@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 21:54:24 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/01 17:34:20 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/05 21:38:20 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,22 +115,3 @@ void	bresenham4(t_data img, t_point p1, t_point p2, t_point d)
 	}
 }
 
-void	draw_line(t_data img, t_point p1, t_point p2, t_point d)
-{
-	d.x = (p2.x - p1.x) * 2;
-	d.y = (p2.y - p1.y) * 2;
-	if ((d.x > 0 && d.y > 0) || (d.x < 0 && d.y < 0))
-	{
-		if (ft_abs(d.x) >= ft_abs(d.y))
-			bresenham1(img, p1, p2, d);
-		else
-			bresenham2(img, p1, p2, d);
-	}
-	else
-	{
-		if (ft_abs(d.x) <= ft_abs(d.y))
-			bresenham3(img, p1, p2, d);
-		else
-			bresenham4(img, p1, p2, d);
-	}
-}

@@ -6,43 +6,47 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:54:02 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/01 17:58:30 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/06 00:15:29 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "bresenham.h"
-#include "colors.h"
 
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-}				t_vars;
 
-int	win_close(t_vars *vars)
+
+int	win_close(t_fdf *fdf)
 {
 	//if (keycode == 65307)
-	mlx_loop_end(vars->mlx);
+	mlx_loop_end(fdf->win.mlx);
 	return (0);
 }
 
-int	key_hook(int keycode, t_vars *vars)
+int	key_hook(int keycode, t_fdf *fdf)
 {
-	(void)vars;
+	(void)fdf;
 	printf("keyboard %c\n", keycode);
 	return (0);
 }
 
-int	mouse_hook(int keycode, t_vars *vars)
+int	mouse_hook(int keycode, t_fdf *fdf)
 {
-	(void)vars;
+	(void)fdf;
 	printf("mouse %d\n", (char)keycode);
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	t_vars	vars;
+	/* int fd = open("test_maps/42.fdf", O_RDONLY);
+	char *line = get_next_line(fd);
+	while (line)
+	{
+		ft_printf(line);
+		free(line);
+		line = get_next_line(fd);
+	} */
+	t_fdf	fdf;
+	t_win	win;
 	t_data	img;
 	t_point	d;
 	t_point	p1;
@@ -52,13 +56,15 @@ int	main(void)
 	p1.y = W_HEIGHT / 2;
 	p2.x = 0;
 	p2.y = 0;
-
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	img.img = mlx_new_image(vars.mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	(void)argc;
+	fdf.win.mlx = mlx_init(); //TODO:check retour
+	fdf.win.win = mlx_new_window(fdf.win.mlx, 1920, 1080, "Hello world!");//TODO:check retour
+	fdf.img.img = mlx_new_image(fdf.win.mlx, 1920, 1080);
+	fdf.img.addr = mlx_get_data_addr(fdf.img.img, &fdf.img.bits_per_pixel, &fdf.img.line_length, &fdf.img.endian);
 	//draw_line(img, p1, p2, d);
-	for (int i=0; i <= W_WIDTH; i += 5)
+	parser(argv[1], &fdf.map);
+	draw_map(&fdf);
+	/* for (int i=0; i <= W_WIDTH; i += 5)
 	{
 		p2.x = i;
 		p2.y = 0;
@@ -73,13 +79,14 @@ int	main(void)
 		draw_line(img, p1, p2, d);
 		p2.x = W_WIDTH;
 		draw_line(img, p1, p2, d);
-	}
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_mouse_hook(vars.win, mouse_hook, &vars);
-	mlx_hook(vars.win, 17, StructureNotifyMask, win_close, &vars);
-	mlx_loop(vars.mlx);
-	mlx_destroy_window(vars.mlx, vars.win);
-	mlx_destroy_display(vars.mlx);
-	free(vars.mlx);
+	} */
+	//ft_printf("%d\n", tab[2][6].z);
+	mlx_put_image_to_window(fdf.win.mlx, fdf.win.win, fdf.img.img, 0, 0);
+	mlx_key_hook(fdf.win.win, key_hook, &fdf);
+	mlx_mouse_hook(fdf.win.win, mouse_hook, &fdf);
+	mlx_hook(fdf.win.win, 17, StructureNotifyMask, win_close, &fdf);
+	mlx_loop(fdf.win.mlx);
+	mlx_destroy_window(fdf.win.mlx, fdf.win.win);
+	mlx_destroy_display(fdf.win.mlx);
+	free(fdf.win.mlx);
 }

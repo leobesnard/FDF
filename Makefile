@@ -12,10 +12,12 @@ src = main.c\
 	colors.c\
 	bresenham.c\
 	utils.c\
+	parser.c\
+	draw.c\
 
 OBJS = ${addprefix $(OBJDIR),$(src:.c=.o)}
 #################################################################
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = #-Wall -Wextra -Werror 
 LINK = -lft -lmlx -lXext -lX11 -lm
 CC = gcc -g
 INCPATH = -I$(INCDIR) -I$(INDIR) -I$(MLPATH)
@@ -40,7 +42,7 @@ checker:
 	make re -C checker_dir/
 	cp checker_dir/checker .
 
-libft:
+lft:
 	make -C $(FTPATH)
 
 clean:
