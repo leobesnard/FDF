@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:27:28 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/06 00:19:22 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/06 19:43:36 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,30 @@
 
 # define INITIAL_X_SCALE 20
 # define INITIAL_Y_SCALE 20
-# define INITIAL_Z_SCALE 5
+# define INITIAL_Z_SCALE 8
+
+# define RIGHT 65363
+# define DOWN 65364
+# define LEFT 65361
+# define UP 65362
+# define ESC 65307
+# define ROT_X 120
+# define ROT_Y 121
+# define ROT_Z 122
+# define KEY_ZOOM '='
+# define KEY_UNZOOM '-'
+# define MOUSE_UP 5
+# define UNZOOM 0.9
+# define ZOOM 1.1
+
 
 #include <mlx.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/X.h>
 #include <fcntl.h>
+#include <math.h>
+
 #include "libft.h"
 
 typedef struct	s_win {
@@ -34,15 +51,21 @@ typedef struct	s_win {
 
 typedef struct s_point
 {
+	float	x;
+	float	y;
+	float	z;
+}	t_point;
+
+typedef struct s_point2d
+{
 	int	x;
 	int	y;
-	int	z;
-}	t_point;
+}	t_point2d;
 
 typedef struct s_map
 {
-	t_point	**map;
-	t_point	max;
+	t_point		**map;
+	t_point2d	max;
 }	t_map;
 
 
@@ -71,27 +94,47 @@ int		ft_abs(int n);
 
 /*bresenham*/
 
-void	bresenham1(t_data img, t_point p1, t_point p2, t_point d);
-void	bresenham2(t_data img, t_point p1, t_point p2, t_point d);
-void	bresenham3(t_data img, t_point p1, t_point p2, t_point d);
-void	bresenham4(t_data img, t_point p1, t_point p2, t_point d);
+void	bresenham1(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
+void	bresenham2(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
+void	bresenham3(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
+void	bresenham4(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
 
 /*colors*/
 
-int	create_trgb(int t, int r, int g, int b);
-int	get_t(int trgb);
-int	get_r(int trgb);
-int	get_g(int trgb);
-int	get_b(int trgb);
+int		create_trgb(int t, int r, int g, int b);
+int		get_t(int trgb);
+int		get_r(int trgb);
+int		get_g(int trgb);
+int		get_b(int trgb);
 
 /*parser*/
 
-int	parser(char *argv1, t_map *map);
-int	get_map_size(char *argv1, t_map *map);
+int		parser(char *argv1, t_map *map);
+int		get_map_size(char *argv1, t_map *map);
 
 /*draw*/
 
-void	draw_line(t_data img, t_point p1, t_point p2, t_point d);
-int		draw_map(t_fdf *fdf);
+void	draw_line(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
+void	draw_map(t_fdf *fdf);
+
+/*free*/
+
+void	free_split(char **split);
+
+/*movements*/
+
+void	x_translation(t_map *map, float move);
+void	y_translation(t_map *map, float move);
+void	rot_z(t_map *map, float angle);
+void	rot_y(t_map *map, float angle);
+void	rot_x(t_map *map, float angle);
+void	zoom(t_map *map, float move);
+
+/*hook*/
+
+int		mouse_hook(int keycode, t_fdf *fdf);
+int		win_close2(int keycode, t_fdf *fdf);
+int		key_hook(int keycode, t_fdf *fdf);
+int		win_close1(t_fdf *fdf);
 
 #endif

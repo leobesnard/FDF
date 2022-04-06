@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 21:54:24 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/05 21:38:20 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:35:14 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 
 
-void	bresenham1(t_data img, t_point p1, t_point p2, t_point d)
+void	bresenham1(t_data img, t_point2d p1, t_point2d p2, t_point2d d)
 {
 	int	e;
 
@@ -40,7 +40,7 @@ void	bresenham1(t_data img, t_point p1, t_point p2, t_point d)
 	}
 }
 
-void	bresenham2(t_data img, t_point p1, t_point p2, t_point d)
+void	bresenham2(t_data img, t_point2d p1, t_point2d p2, t_point2d d)
 {
 	int	e;
 
@@ -65,7 +65,7 @@ void	bresenham2(t_data img, t_point p1, t_point p2, t_point d)
 	}
 }
 
-void	bresenham3(t_data img, t_point p1, t_point p2, t_point d)
+void	bresenham3(t_data img, t_point2d p1, t_point2d p2, t_point2d d)
 {
 	int	e;
 
@@ -90,7 +90,7 @@ void	bresenham3(t_data img, t_point p1, t_point p2, t_point d)
 	}
 }
 
-void	bresenham4(t_data img, t_point p1, t_point p2, t_point d)
+void	bresenham4(t_data img, t_point2d p1, t_point2d p2, t_point2d d)
 {
 	int	e;
 

@@ -6,11 +6,19 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:26:51 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/06 00:36:52 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:20:08 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+
+void	fill_point(t_map *map, char *split, int i, int y)
+{
+	map->map[y][i].x = i * INITIAL_X_SCALE;
+	map->map[y][i].y = y * INITIAL_Y_SCALE;
+	map->map[y][i].z = ft_atoi(split) * INITIAL_Z_SCALE;
+}
 
 int	get_map_size(char *argv1, t_map *map)
 {
@@ -20,8 +28,9 @@ int	get_map_size(char *argv1, t_map *map)
 
 	map->max.x = 0;
 	map->max.y = 0;
-	map->max.z = 0;
 	fd = open(argv1, O_RDONLY);
+	if (fd == -1)
+		return (-1);
 	line = get_next_line(fd);
 	if (!line)
 		return (-1);
@@ -30,10 +39,8 @@ int	get_map_size(char *argv1, t_map *map)
 		map->max.y++;
 		split = ft_split(line, ' ');
 		if (get_size(split) > map->max.x)
-		{
 			map->max.x = get_size(split);
-			free_split(split); //TODO: create free_split fct ou plus smart
-		}
+		free_split(split); //TODO: create free_split fct ou plus smart
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -45,8 +52,8 @@ int	fill_map(t_map *map, int fd)
 {
 	char	**split;
 	char	*line;
-	char	x;
-	char	y;
+	int		x;
+	int		y;
 	
 	x = 0;
 	y = 0;
@@ -56,13 +63,10 @@ int	fill_map(t_map *map, int fd)
 	while (line)
 	{
 		split = ft_split(line, ' ');
-		ft_printf(line);
 		free(line);
 		while(x < map->max.x)
 		{
-			map->map[y][x].x = x * INITIAL_X_SCALE;
-			map->map[y][x].y = y * INITIAL_Y_SCALE;
-			map->map[y][x].z = ft_atoi(split[x]) * INITIAL_Z_SCALE;
+			fill_point(map, split[x], x, y);
 			x++;
 		}
 		free_split(split);
@@ -108,4 +112,5 @@ int	parser(char *argv1, t_map *map)
 		return (-1);
 	if (fill_map(map, fd))
 		return (-1);
+	return(0);
 }

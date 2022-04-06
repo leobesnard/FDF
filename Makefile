@@ -14,10 +14,15 @@ src = main.c\
 	utils.c\
 	parser.c\
 	draw.c\
+	free.c\
+	movements.c\
+	movements2.c\
+	hook.c\
+	
 
 OBJS = ${addprefix $(OBJDIR),$(src:.c=.o)}
 #################################################################
-CFLAGS = #-Wall -Wextra -Werror 
+CFLAGS = #-Wall -Wextra -Werror -Ofast
 LINK = -lft -lmlx -lXext -lX11 -lm
 CC = gcc -g
 INCPATH = -I$(INCDIR) -I$(INDIR) -I$(MLPATH)
