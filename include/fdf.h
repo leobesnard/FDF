@@ -6,15 +6,15 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:27:28 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/06 19:43:36 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/08 00:38:58 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define W_WIDTH 1920
-# define W_HEIGHT 1080
+# define W_WIDTH 1200
+# define W_HEIGHT 800
 
 # define INITIAL_X_SCALE 20
 # define INITIAL_Y_SCALE 20
@@ -54,6 +54,7 @@ typedef struct s_point
 	float	x;
 	float	y;
 	float	z;
+	float	color;
 }	t_point;
 
 typedef struct s_point2d
@@ -85,41 +86,42 @@ typedef struct s_fdf
 	t_data	img;
 }	t_fdf;
 
-/*utils*/
+/* utils */
 
 void	pixel_put(t_data *data, int x, int y, int color);
-void	ft_swap(int *a, int *b);
+void	ft_swap(t_point2d *a, t_point2d *b);
 int		get_size(char **tab);
 int		ft_abs(int n);
 
-/*bresenham*/
+/* bresenham */
 
-void	bresenham1(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
-void	bresenham2(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
-void	bresenham3(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
-void	bresenham4(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
+void	bresenham1(t_data img, t_point2d p1, t_point2d p2, float z);
+void	bresenham2(t_data img, t_point2d p1, t_point2d p2, float z);
+void	bresenham3(t_data img, t_point2d p1, t_point2d p2, float z);
+void	bresenham4(t_data img, t_point2d p1, t_point2d p2, float z);
 
 /*colors*/
 
 int		create_trgb(int t, int r, int g, int b);
-int		get_t(int trgb);
+int		get_color(float z, char *split);
 int		get_r(int trgb);
 int		get_g(int trgb);
 int		get_b(int trgb);
 
-/*parser*/
+/* parser */
 
 int		parser(char *argv1, t_map *map);
 int		get_map_size(char *argv1, t_map *map);
 
 /*draw*/
 
-void	draw_line(t_data img, t_point2d p1, t_point2d p2, t_point2d d);
+void	draw_line(t_data img, t_point2d p1, t_point2d p2, float z);
 void	draw_map(t_fdf *fdf);
 
-/*free*/
+/* free */
 
 void	free_split(char **split);
+void	free_map(t_map map);
 
 /*movements*/
 

@@ -6,15 +6,15 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 19:22:30 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/06 14:33:49 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/08 00:05:54 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_swap(int *a, int *b)
+void	ft_swap(t_point2d *a, t_point2d *b)
 {
-	int	tmp;
+	t_point2d	tmp;
 	
 	tmp = *a;
 	*a = *b;

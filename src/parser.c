@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:26:51 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/06 16:20:08 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/08 00:20:59 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	fill_point(t_map *map, char *split, int i, int y)
 	map->map[y][i].x = i * INITIAL_X_SCALE;
 	map->map[y][i].y = y * INITIAL_Y_SCALE;
 	map->map[y][i].z = ft_atoi(split) * INITIAL_Z_SCALE;
+	//printf("%f\n", map->map[y][i].z);
+	map->map[y][i].color = get_color(map->map[y][i].z, split);
 }
 
 int	get_map_size(char *argv1, t_map *map)
@@ -63,8 +65,10 @@ int	fill_map(t_map *map, int fd)
 	while (line)
 	{
 		split = ft_split(line, ' ');
+		if (!split)
+			return (0);
 		free(line);
-		while(x < map->max.x)
+		while(split[x] && x < map->max.x)
 		{
 			fill_point(map, split[x], x, y);
 			x++;
@@ -74,9 +78,9 @@ int	fill_map(t_map *map, int fd)
 		y++;
 		line = get_next_line(fd);
 		if (!line)
-			return(-1);
+			return(0);
 	}
-	return (1);
+	return (0);
 }
 
 
