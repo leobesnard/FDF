@@ -10,8 +10,10 @@ MLX =$(MLPATH)libmlx.a
 #################################################################
 src = main.c\
 	colors.c\
+	colors2.c\
 	bresenham.c\
 	utils.c\
+	utils2.c\
 	parser.c\
 	draw.c\
 	free.c\
@@ -22,7 +24,7 @@ src = main.c\
 
 OBJS = ${addprefix $(OBJDIR),$(src:.c=.o)}
 #################################################################
-CFLAGS = #-Wall -Wextra -Werror -Ofast
+CFLAGS = -Wall -Wextra -Werror -Ofast
 LINK = -lft -lmlx -lXext -lX11 -lm
 CC = gcc -g
 INCPATH = -I$(INCDIR) -I$(INDIR) -I$(MLPATH)

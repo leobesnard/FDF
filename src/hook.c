@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 12:28:37 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/06 19:43:58 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/08 19:07:36 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ int	win_close1(t_fdf *fdf)
 int	mouse_hook(int keycode, t_fdf *fdf)
 {
 	/* if (keycode == MOUSE_UP)
-		zoom(&fdf->map, ZOOM); */
+		printf("bonjour\n"); */
+	(void)keycode;
+	(void)fdf;
+		/* zoom(&fdf->map, ZOOM); */
 	return (0);
 }

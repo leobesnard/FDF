@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:18:23 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/07 21:24:36 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/09 01:45:44 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	in_window(t_point2d p1, t_point2d p2)
 	return (1);
 }
 
-void	draw_line(t_data img, t_point2d p1, t_point2d p2, float color)
+void	draw_line(t_data img, t_point2d p1, t_point2d p2, int color)
 {
 	t_point2d	d;
 	
@@ -64,16 +64,16 @@ void	draw_map(t_fdf *fdf)
 			if (x != fdf->map.max.x - 1)
 			{
 				draw_line((*fdf).img, (t_point2d){fdf->map.map[y][x].x, 
-				fdf->map.map[y][x].y},
-				 (t_point2d){fdf->map.map[y][x + 1].x, fdf->map.map[y][x + 1].y}, 
-				 (fdf->map.map[y][x].color + fdf->map.map[y][x + 1].color) / 2);
+				fdf->map.map[y][x].y}, (t_point2d){fdf->map.map[y][x + 1].x,
+				fdf->map.map[y][x + 1].y}, (mix_color(fdf->map.map[y][x].color,
+				fdf->map.map[y][x + 1].color, 0.5)));
 			}
 			if (y != fdf->map.max.y - 1)
 			{
 				draw_line((*fdf).img, (t_point2d){fdf->map.map[y][x].x, 
-				fdf->map.map[y][x].y},
-				(t_point2d){fdf->map.map[y + 1][x].x, fdf->map.map[y + 1][x].y},
-				 (fdf->map.map[y][x].color + fdf->map.map[y + 1][x].color) / 2);
+				fdf->map.map[y][x].y}, (t_point2d){fdf->map.map[y + 1][x].x,
+				fdf->map.map[y + 1][x].y}, (mix_color(fdf->map.map[y][x].color,
+				fdf->map.map[y + 1][x].color, 0.5)));
 			}
 		}
 	}

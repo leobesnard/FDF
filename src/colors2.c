@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movements2.c                                       :+:      :+:    :+:   */
+/*   colors2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 19:10:57 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/08 15:38:07 by lbesnard         ###   ########.fr       */
+/*   Created: 2022/04/09 01:36:49 by lbesnard          #+#    #+#             */
+/*   Updated: 2022/04/09 01:49:52 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	zoom(t_map *map, float move)
+int	mix_color(int c1, int c2, float f)
 {
-	int		i;
-	int		u;
-
-	u = 0;
-	i = 0;
-	while (u < map->max.y)
-	{
-		while(i < map->max.x)
-		{
-			map->map[u][i].x *= move;
-			map->map[u][i].y *= move;
-			map->map[u][i].z *= move;
-			i++;
-		}
-		i = 0;
-		u++;
-	}
+	return (create_trgb(0, (get_r(c1) * f) + (get_r(c2) * (1 - f)),
+						(get_g(c1) * f) + (get_g(c2) * (1 - f)),
+						(get_b(c1) * f) + (get_b(c2) * (1 - f))));
 }

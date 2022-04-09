@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:27:28 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/08 00:38:58 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/09 01:49:05 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define UNZOOM 0.9
 # define ZOOM 1.1
 
+# define COLOR_MAX 0xcc0000
+# define COLOR_MIN 0xffffff
 
 #include <mlx.h>
 #include <stdio.h>
@@ -54,19 +56,21 @@ typedef struct s_point
 	float	x;
 	float	y;
 	float	z;
-	float	color;
+	int		color;
 }	t_point;
 
 typedef struct s_point2d
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 }	t_point2d;
 
 typedef struct s_map
 {
 	t_point		**map;
 	t_point2d	max;
+	int			z_min;
+	int			z_max;
 }	t_map;
 
 
@@ -88,22 +92,26 @@ typedef struct s_fdf
 
 /* utils */
 
-void	pixel_put(t_data *data, int x, int y, int color);
-void	ft_swap(t_point2d *a, t_point2d *b);
-int		get_size(char **tab);
-int		ft_abs(int n);
+void			pixel_put(t_data *data, int x, int y, int color);
+void			find_max_z(char **split, t_map *map);
+void			ft_swap(t_point2d *a, t_point2d *b);
+int				get_index(char *str, char c);
+unsigned int	hex_to_unsigned(char *src);
+int				get_size(char **tab);
+int				ft_abs(int n);
 
 /* bresenham */
 
-void	bresenham1(t_data img, t_point2d p1, t_point2d p2, float z);
-void	bresenham2(t_data img, t_point2d p1, t_point2d p2, float z);
-void	bresenham3(t_data img, t_point2d p1, t_point2d p2, float z);
-void	bresenham4(t_data img, t_point2d p1, t_point2d p2, float z);
+void	bresenham1(t_data img, t_point2d p1, t_point2d p2, int z);
+void	bresenham2(t_data img, t_point2d p1, t_point2d p2, int z);
+void	bresenham3(t_data img, t_point2d p1, t_point2d p2, int z);
+void	bresenham4(t_data img, t_point2d p1, t_point2d p2, int z);
 
 /*colors*/
 
+int		get_color(float z, char *split, t_map *map);
 int		create_trgb(int t, int r, int g, int b);
-int		get_color(float z, char *split);
+int		mix_color(int c1, int c2, float f);
 int		get_r(int trgb);
 int		get_g(int trgb);
 int		get_b(int trgb);
@@ -115,7 +123,7 @@ int		get_map_size(char *argv1, t_map *map);
 
 /*draw*/
 
-void	draw_line(t_data img, t_point2d p1, t_point2d p2, float z);
+void	draw_line(t_data img, t_point2d p1, t_point2d p2, int z);
 void	draw_map(t_fdf *fdf);
 
 /* free */

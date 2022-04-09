@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 19:22:30 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/08 00:05:54 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/08 15:32:35 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,18 @@ int	get_size(char **tab)
 	}
 	return (i);
 }
+
+int	get_index(char *str, char c)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+

@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:54:02 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/08 00:39:59 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:24:33 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	init_window(t_fdf *fdf)
 	if (!(fdf->win.win))
 		return (0);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
+	return (1);
 }
 
 int	main(int argc, char **argv)
