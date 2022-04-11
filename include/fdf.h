@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:27:28 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/09 01:49:05 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/11 17:48:51 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define INITIAL_X_SCALE 20
 # define INITIAL_Y_SCALE 20
-# define INITIAL_Z_SCALE 8
+# define INITIAL_Z_SCALE 6
 
 # define RIGHT 65363
 # define DOWN 65364
@@ -86,6 +86,7 @@ typedef struct s_fdf
 {
 	char	*map_name;
 	t_map	map;
+	t_map	initial_map_cpy;
 	t_win	win;
 	t_data	img;
 }	t_fdf;
@@ -97,7 +98,9 @@ void			find_max_z(char **split, t_map *map);
 void			ft_swap(t_point2d *a, t_point2d *b);
 int				get_index(char *str, char c);
 unsigned int	hex_to_unsigned(char *src);
+void			init_max(t_map *map);
 int				get_size(char **tab);
+void			cpy_map(t_fdf *fdf);
 int				ft_abs(int n);
 
 /* bresenham */
@@ -118,7 +121,7 @@ int		get_b(int trgb);
 
 /* parser */
 
-int		parser(char *argv1, t_map *map);
+int		parser(char *argv1, t_fdf *fdf);
 int		get_map_size(char *argv1, t_map *map);
 
 /*draw*/
@@ -129,7 +132,7 @@ void	draw_map(t_fdf *fdf);
 /* free */
 
 void	free_split(char **split);
-void	free_map(t_map map);
+void	free_map(t_map map, int i);
 
 /*movements*/
 
@@ -139,12 +142,15 @@ void	rot_z(t_map *map, float angle);
 void	rot_y(t_map *map, float angle);
 void	rot_x(t_map *map, float angle);
 void	zoom(t_map *map, float move);
+void	iso_view(t_fdf *fdf);
+void	para_view(t_fdf *fdf);
 
 /*hook*/
 
 int		mouse_hook(int keycode, t_fdf *fdf);
 int		win_close2(int keycode, t_fdf *fdf);
 int		key_hook(int keycode, t_fdf *fdf);
+void	initial_scale(t_fdf *fdf);
 int		win_close1(t_fdf *fdf);
 
 #endif

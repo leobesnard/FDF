@@ -6,12 +6,26 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 12:28:37 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/08 19:07:36 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/11 17:48:28 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void initial_scale(t_fdf *fdf)
+{
+	x_translation(&fdf->map, -(fdf->map.max.x * INITIAL_X_SCALE) / 2);
+	y_translation(&fdf->map, -(fdf->map.max.y * INITIAL_Y_SCALE) / 2);
+	rot_x(&fdf->map, 0.5);
+	rot_y(&fdf->map, -0.5);
+	if (fdf->map.max.x > 100)
+		zoom(&fdf->map, 0.1);
+	if (fdf->map.max.x <= 100 && fdf->map.max.x > 25)
+		zoom(&fdf->map, 0.6);
+	if (fdf->map.max.x <= 25)
+		zoom(&fdf->map, 1.1);
+	
+}
 
 int	key_hook(int keycode, t_fdf *fdf)
 {
@@ -35,6 +49,10 @@ int	key_hook(int keycode, t_fdf *fdf)
 		zoom(&fdf->map, UNZOOM);
 	if (keycode == KEY_ZOOM)
 		zoom(&fdf->map, ZOOM);
+	if (keycode == 'i')
+		iso_view(fdf);
+	if (keycode == 'p')
+		para_view(fdf);
 	draw_map(fdf);
 	mlx_put_image_to_window(fdf->win.mlx, fdf->win.win, fdf->img.img, 0, 0);
 	return (0);
