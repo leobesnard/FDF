@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 12:28:37 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/12 12:58:37 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:37:31 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	initial_scale(t_fdf *fdf)
 	rot_y(&fdf->map, -0.5);
 	if (fdf->map.max.x > 100)
 		zoom(&fdf->map, 0.1);
-	if (fdf->map.max.x <= 100 && fdf->map.max.x > 25)
+	else if (fdf->map.max.x <= 100 && fdf->map.max.x > 25)
 		zoom(&fdf->map, 0.6);
-	if (fdf->map.max.x <= 25)
+	else if (fdf->map.max.x <= 25)
 		zoom(&fdf->map, 1.1);
 }
 
@@ -30,26 +30,27 @@ int	choose_hook(int keycode, t_fdf *fdf)
 {
 	if (keycode == LEFT)
 		x_translation(&fdf->map, -10);
-	if (keycode == RIGHT)
+	else if (keycode == RIGHT)
 		x_translation(&fdf->map, 10);
-	if (keycode == UP)
+	else if (keycode == UP)
 		y_translation(&fdf->map, -10);
-	if (keycode == DOWN)
+	else if (keycode == DOWN)
 		y_translation(&fdf->map, 10);
-	if (keycode == ROT_Z)
+	else if (keycode == ROT_Z)
 		rot_z(&fdf->map, 0.05);
-	if (keycode == ROT_Y)
+	else if (keycode == ROT_Y)
 		rot_y(&fdf->map, 0.05);
-	if (keycode == ROT_X)
+	else if (keycode == ROT_X)
 		rot_x(&fdf->map, 0.05);
-	if (keycode == KEY_UNZOOM)
+	else if (keycode == KEY_UNZOOM)
 		zoom(&fdf->map, UNZOOM);
-	if (keycode == KEY_ZOOM)
+	else if (keycode == KEY_ZOOM)
 		zoom(&fdf->map, ZOOM);
-	if (keycode == 'i')
+	else if (keycode == 'i')
 		iso_view(fdf);
-	if (keycode == 'p')
+	else if (keycode == 'p')
 		para_view(fdf);
+	return (0);
 }
 
 int	key_hook(int keycode, t_fdf *fdf)

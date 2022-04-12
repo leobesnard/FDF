@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:54:02 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/12 12:42:19 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:38:10 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	main(int argc, char **argv)
 		draw_map(&fdf);
 		mlx_put_image_to_window(fdf.win.mlx, fdf.win.win, fdf.img.img, 0, 0);
 		mlx_key_hook(fdf.win.win, key_hook, &fdf);
-		mlx_mouse_hook(fdf.win.win, mouse_hook, &fdf);
 		mlx_hook(fdf.win.win, 17, StructureNotifyMask, win_close1, &fdf);
 		mlx_hook(fdf.win.win, 2, 1L << 0, win_close2, &fdf);
 		mlx_loop(fdf.win.mlx);
