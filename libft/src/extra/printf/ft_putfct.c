@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:34:13 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/08 14:33:28 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:19:37 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_putnbr_base(int nb, char *base)
 }
 
 void	ft_putnbr_hex_base(unsigned long nb, char *base)
-{  
+{
 	unsigned long	n;
 
 	n = nb;

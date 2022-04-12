@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 12:39:00 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/03/01 16:11:43 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:20:07 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 int		ft_lstsize(t_list *lst);
 int		ft_printf(const char *format, ...);
-char    *get_next_line(int fd);
+char	*get_next_line(int fd);
 
 #endif 

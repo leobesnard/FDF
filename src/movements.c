@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 22:13:09 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/11 16:27:23 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:36:18 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	rot_z(t_map *map, float angle)
 {
 	int		i;
 	int		u;
-	float		tmpx;
-	float		tmpy;
+	float	tmpx;
+	float	tmpy;
 
 	u = 0;
 	i = 0;
 	while (u < map->max.y)
 	{
-		while(i < map->max.x)
+		while (i < map->max.x)
 		{
 			tmpx = map->map[u][i].x;
 			tmpy = map->map[u][i].y;
@@ -40,14 +40,14 @@ void	rot_x(t_map *map, float angle)
 {
 	int		i;
 	int		u;
-	float		tmpy;
-	float		tmpz;
+	float	tmpy;
+	float	tmpz;
 
 	u = 0;
 	i = 0;
 	while (u < map->max.y)
 	{
-		while(i < map->max.x)
+		while (i < map->max.x)
 		{
 			tmpy = map->map[u][i].y;
 			tmpz = map->map[u][i].z;
@@ -71,7 +71,7 @@ void	rot_y(t_map *map, float angle)
 	i = 0;
 	while (u < map->max.y)
 	{
-		while(i < map->max.x)
+		while (i < map->max.x)
 		{
 			tmpx = map->map[u][i].x;
 			tmpz = map->map[u][i].z;
@@ -88,12 +88,12 @@ void	x_translation(t_map *map, float move)
 {
 	int		i;
 	int		u;
-	
+
 	u = 0;
 	i = 0;
 	while (u < map->max.y)
 	{
-		while(i < map->max.x)
+		while (i < map->max.x)
 		{
 			map->map[u][i].x += move;
 			i++;
@@ -107,12 +107,12 @@ void	y_translation(t_map *map, float move)
 {
 	int		i;
 	int		u;
-	
+
 	u = 0;
 	i = 0;
 	while (u < map->max.y)
 	{
-		while(i < map->max.x)
+		while (i < map->max.x)
 		{
 			map->map[u][i].y += move;
 			i++;

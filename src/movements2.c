@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:10:57 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/11 17:50:06 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:36:41 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	zoom(t_map *map, float move)
 		return ;
 	while (u < map->max.y)
 	{
-		while(i < map->max.x)
+		while (i < map->max.x)
 		{
 			map->map[u][i].x *= move;
 			map->map[u][i].y *= move;
@@ -39,7 +39,7 @@ void	iso_view(t_fdf *fdf)
 {
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	y = 0;
 	while (y < fdf->map.max.y)
@@ -62,7 +62,7 @@ void	para_view(t_fdf *fdf)
 {
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	y = 0;
 	while (y < fdf->map.max.y)

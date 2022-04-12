@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 15:24:24 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/09 03:08:00 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:53:35 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	get_color(float z, char *split, t_map *map)
 	char	*index;
 	int		max;
 	int		min;
-	
+
 	index = ft_strchr(split, ',');
 	(void)map;
 	if (index)
 	{
-		 return (hex_to_unsigned(index + 1));//TODO: remplacer par hex to unsigned int
+		return (hex_to_unsigned(index + 1));
 	}
 	else
 	{

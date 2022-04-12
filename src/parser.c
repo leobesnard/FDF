@@ -6,12 +6,11 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:26:51 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/11 17:31:25 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:35:05 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 void	fill_point(t_map *map, char *split, int i, int y)
 {
@@ -54,33 +53,27 @@ int	fill_map(t_map *map, int fd)
 	char	*line;
 	int		x;
 	int		y;
-	
-	x = 0;
+
 	y = 0;
 	line = get_next_line(fd);
-	if (!line)
-		return (0);
 	while (line)
 	{
+		x = 0;
 		split = ft_split(line, ' ');
 		free(line);
 		if (!split)
 			return (0);
-		while(split[x] && x < map->max.x)
+		while (split[x] && x < map->max.x)
 		{
 			fill_point(map, split[x], x, y);
 			x++;
 		}
 		free_split(split);
-		x = 0;
 		y++;
 		line = get_next_line(fd);
-		if (!line)
-			return(0);
 	}
 	return (0);
 }
-
 
 int	map_alloc(t_map *map)
 {
@@ -120,8 +113,8 @@ int	parser(char *argv1, t_fdf *fdf)
 		return (-1);
 	fdf->initial_map_cpy.max.x = fdf->map.max.x;
 	fdf->initial_map_cpy.max.y = fdf->map.max.y;
-	if(map_alloc(&fdf->initial_map_cpy))
+	if (map_alloc(&fdf->initial_map_cpy))
 		return (-1);
 	cpy_map(fdf);
-	return(0);
+	return (0);
 }

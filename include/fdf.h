@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:27:28 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/11 17:48:51 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:52:24 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,26 @@
 # define COLOR_MAX 0xcc0000
 # define COLOR_MIN 0xffffff
 
-#include <mlx.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <X11/X.h>
-#include <fcntl.h>
-#include <math.h>
+# include <mlx.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <X11/X.h>
+# include <fcntl.h>
+# include <math.h>
 
-#include "libft.h"
+# include "libft.h"
 
-typedef struct	s_win {
+typedef struct s_win {
 	void	*mlx;
 	void	*win;
-}				t_win;
+}	t_win;
 
 typedef struct s_point
 {
 	float	x;
 	float	y;
 	float	z;
-	int		color;
+	int		c;
 }	t_point;
 
 typedef struct s_point2d
@@ -73,8 +73,7 @@ typedef struct s_map
 	int			z_max;
 }	t_map;
 
-
-typedef struct	s_data {
+typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -105,52 +104,52 @@ int				ft_abs(int n);
 
 /* bresenham */
 
-void	bresenham1(t_data img, t_point2d p1, t_point2d p2, int z);
-void	bresenham2(t_data img, t_point2d p1, t_point2d p2, int z);
-void	bresenham3(t_data img, t_point2d p1, t_point2d p2, int z);
-void	bresenham4(t_data img, t_point2d p1, t_point2d p2, int z);
+void			bresenham1(t_data img, t_point2d p1, t_point2d p2, int z);
+void			bresenham2(t_data img, t_point2d p1, t_point2d p2, int z);
+void			bresenham3(t_data img, t_point2d p1, t_point2d p2, int z);
+void			bresenham4(t_data img, t_point2d p1, t_point2d p2, int z);
 
 /*colors*/
 
-int		get_color(float z, char *split, t_map *map);
-int		create_trgb(int t, int r, int g, int b);
-int		mix_color(int c1, int c2, float f);
-int		get_r(int trgb);
-int		get_g(int trgb);
-int		get_b(int trgb);
+int				get_color(float z, char *split, t_map *map);
+int				create_trgb(int t, int r, int g, int b);
+int				mix_color(int c1, int c2, float f);
+int				get_r(int trgb);
+int				get_g(int trgb);
+int				get_b(int trgb);
 
 /* parser */
 
-int		parser(char *argv1, t_fdf *fdf);
-int		get_map_size(char *argv1, t_map *map);
+int				parser(char *argv1, t_fdf *fdf);
+int				get_map_size(char *argv1, t_map *map);
 
 /*draw*/
 
-void	draw_line(t_data img, t_point2d p1, t_point2d p2, int z);
-void	draw_map(t_fdf *fdf);
+void			draw_line(t_data img, t_point2d p1, t_point2d p2, int z);
+void			draw_map(t_fdf *fdf);
 
 /* free */
 
-void	free_split(char **split);
-void	free_map(t_map map, int i);
+void			free_split(char **split);
+void			free_map(t_map map, int i);
 
 /*movements*/
 
-void	x_translation(t_map *map, float move);
-void	y_translation(t_map *map, float move);
-void	rot_z(t_map *map, float angle);
-void	rot_y(t_map *map, float angle);
-void	rot_x(t_map *map, float angle);
-void	zoom(t_map *map, float move);
-void	iso_view(t_fdf *fdf);
-void	para_view(t_fdf *fdf);
+void			x_translation(t_map *map, float move);
+void			y_translation(t_map *map, float move);
+void			rot_z(t_map *map, float angle);
+void			rot_y(t_map *map, float angle);
+void			rot_x(t_map *map, float angle);
+void			zoom(t_map *map, float move);
+void			iso_view(t_fdf *fdf);
+void			para_view(t_fdf *fdf);
 
 /*hook*/
 
-int		mouse_hook(int keycode, t_fdf *fdf);
-int		win_close2(int keycode, t_fdf *fdf);
-int		key_hook(int keycode, t_fdf *fdf);
-void	initial_scale(t_fdf *fdf);
-int		win_close1(t_fdf *fdf);
+int				mouse_hook(int keycode, t_fdf *fdf);
+int				win_close2(int keycode, t_fdf *fdf);
+int				key_hook(int keycode, t_fdf *fdf);
+void			initial_scale(t_fdf *fdf);
+int				win_close1(t_fdf *fdf);
 
 #endif
