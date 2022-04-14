@@ -6,7 +6,7 @@
 /*   By: lbesnard <lbesnard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:10:57 by lbesnard          #+#    #+#             */
-/*   Updated: 2022/04/12 12:36:41 by lbesnard         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:23:56 by lbesnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	zoom(t_map *map, float move)
 
 	u = 0;
 	i = 0;
-	if (move > 1 && map->map[u][i].x >= 700)
+	if (move > 1 && ft_abs(map->map[u][i].x) >= 8000)
 		return ;
 	while (u < map->max.y)
 	{
